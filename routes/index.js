@@ -121,10 +121,12 @@ router.post('/start', function (req, res) {
 
   // Response data
   var data = {
-    color: '#FFD957',
-    name: 'Node Snake',
-    head_url: 'http://www.placecage.com/c/200/200', // optional, but encouraged!
-    taunt: "Let's do thisss thang!", // optional, but encouraged!
+    color: "#FFD957",
+    secondary_color: "#D15BFE",
+    head_url: "http://placecage.com/c/100/100",
+    taunt: "OH GOD NOT THE BEES",
+    head_type: "tongue",
+    tail_type: "small-rattle"
   }
 
   return res.json(data)
