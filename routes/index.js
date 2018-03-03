@@ -1,6 +1,9 @@
 var express = require('express')
 var router  = express.Router()
 
+function snakeHead(snake) {
+  return snake.body.data[0]; // {"x": 8, "y": 15 }
+}
 // Handle POST request to '/start'
 router.post('/start', function (req, res) {
   // NOTE: Do something here to start the game
@@ -19,14 +22,16 @@ router.post('/start', function (req, res) {
 // Handle POST request to '/move'
 router.post('/move', function (req, res) {
   // NOTE: Do something here to generate your move
-
   // Response data
   var data = {
     move: 'up', // one of: ['up','down','left','right']
     taunt: 'Outta my way, snake!!!', // optional, but encouraged!
+    head: snakeHead(req.body.you)
   }
 
   return res.json(data)
 })
+
+
 
 module.exports = router
