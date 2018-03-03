@@ -76,11 +76,8 @@ function pickMove(data, moveOptions) {
   var wallHeight = data.height;
   var wallWidth = data.width;
 
-  console.log(moveOptions)
   avoidWalls(head, wallHeight, wallWidth, moveOptions)
-  console.log(moveOptions)
   avoidSelf(data, head, moveOptions)
-  console.log(moveOptions)
   avoidSenks(data, head, moveOptions)
 
   for (i=0; i < moveOptions.length; i++) {
@@ -98,17 +95,16 @@ function pickMove(data, moveOptions) {
 function findFood(data) {
   var foodLocation = data.food.data
   var head = snakeHead(data.you)
-  var dist
-  if (foodLocation.length > 1){
+  var dist = []
+  if (foodLocation.length >= 1){
     // go through all food on board
-    for (i = 0; i < foodLocation.length; i++){
-        var x = Math.abs(head.x - foodLocation.x)
-        var y = Math.abs(head.y - foodLocation.y)
-        dist[i] = Math.sqrt((Math.pow(x, 2)) + (Math.pow(y, 2)))
+    for (var i = 0; i < foodLocation.length; i++){
+        var x = Math.abs(head.x - foodLocation[i].x)
+        var y = Math.abs(head.y - foodLocation[i].y)
+        dist[i] = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
     }
     // index of minimum distance food
-    var min = dist.indexOf(Math.min(...dist));
-    console.log(min)
+    var min = dist.indexOf(Math.min(...dist))
     return foodLocation[min]
   }
   return foodLocation[0]
@@ -144,7 +140,8 @@ router.post('/move', function (req, res) {
   var data = {
     move: options[moveIndex], // one of: ['up','down','left','right']
     taunt: 'Outta my way, snake!!!', // optional, but encouraged!
-    head: snakeHead(req.body.you)
+    head: snakeHead(req.body.you),
+    nearestFood: findFood(req.body)
   }
 
   return res.json(data)
