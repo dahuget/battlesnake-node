@@ -83,14 +83,14 @@ function pickMove(data, moveOptions) {
   console.log(moveOptions)
   avoidSenks(data, head, moveOptions)
 
-  // for (i=0; i < moveOptions.length; i++) {
-  //   if (moveOptions[i] === true) {
-  //     return i
-  //   }
-  // }
+  for (i=0; i < moveOptions.length; i++) {
+    if (moveOptions[i] === true) {
+      return i
+    }
+  }
 
-  moveOptions = moveOptions.filter(Boolean);
-  var index = Math.floor(Math.random() * moveOptions.length);
+  //moveOptions = moveOptions.filter(Boolean);
+  //var index = Math.floor(Math.random() * moveOptions.length);
 
 }
 
