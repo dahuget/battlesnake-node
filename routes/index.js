@@ -26,6 +26,22 @@ function avoidWalls(head, height, width) {
   return moves
 }
 
+
+function pickMove(data) {
+  var head = snakeHead(data.you);
+  var wallHeight = data.height;
+  var wallWidth = data.width;
+
+  moves = avoidWalls(head, wallHeight, wallWidth)
+
+
+  for (i=0; i < moves.length; i++) {
+    if (moves[i] === true) {
+      return i
+    }
+  }
+}
+
 // Handle POST request to '/start'
 router.post('/start', function (req, res) {
   // NOTE: Do something here to start the game
@@ -45,8 +61,13 @@ router.post('/start', function (req, res) {
 router.post('/move', function (req, res) {
   // NOTE: Do something here to generate your move
   // Response data
+
+  var moveIndex = pickMove(req.body)
+  var options = ['left', 'right', 'up', 'down']
+
+
   var data = {
-    move: 'up', // one of: ['up','down','left','right']
+    move: options[moveIndex], // one of: ['up','down','left','right']
     taunt: 'Outta my way, snake!!!', // optional, but encouraged!
     head: snakeHead(req.body.you)
   }
