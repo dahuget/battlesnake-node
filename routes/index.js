@@ -11,7 +11,7 @@ function avoidWalls(head, height, width, moveOptions) {
     moveOptions[0] = false
   }
   if(head.x +1 >= width){
-    //cant fo right
+    //cant go right
     moveOptions[1] = false
   }
   if(head.y -1 < 0){
@@ -52,9 +52,11 @@ function pickMove(data, moveOptions) {
   var wallHeight = data.height;
   var wallWidth = data.width;
 
+  console.log(moveOptions)
   avoidWalls(head, wallHeight, wallWidth, moveOptions)
+  console.log(moveOptions)
   avoidSelf(head, moveOptions)
-
+  console.log(moveOptions)
 
   for (i=0; i < moveOptions.length; i++) {
     if (moveOptions[i] === true) {
