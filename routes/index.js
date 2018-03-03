@@ -1,9 +1,7 @@
 var express = require('express')
 var router  = express.Router()
 
-function snakeHead(snake) {
-  return snake.body.data[0]; // {"x": 8, "y": 15 }
-}
+var snakeHelpers = require('../helpers/snakeHelpers')
 
 function avoidWalls(head, height, width, moveOptions) {
   if(head.x -1 < 0){
@@ -72,7 +70,7 @@ function avoidSenks(data, head, moveOptions) {
 }
 
 function pickMove(data, moveOptions) {
-  var head = snakeHead(data.you);
+  var head = snakeHelpers.snakeHead(data.you);
   var wallHeight = data.height;
   var wallWidth = data.width;
 
@@ -124,7 +122,7 @@ router.post('/move', function (req, res) {
   var data = {
     move: options[moveIndex], // one of: ['up','down','left','right']
     taunt: 'Outta my way, snake!!!', // optional, but encouraged!
-    head: snakeHead(req.body.you)
+    head: snakeHelpers.snakeHead(req.body.you)
   }
 
   return res.json(data)
