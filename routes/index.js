@@ -197,14 +197,21 @@ router.post('/move', function (req, res) {
   var moveOptions = [true, true, true, true];
   var moveIndex = pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
-  console.log("alkadus")
   var snakeHead = snakeHelpers.snakeHead(req.body.you)
-  console.log("alkadus")
   var nearestFood = findFood(req.body)
-  console.log("alkadus")
+
+
+  var needsFood = needFood(req.body)
+  var move;
+
+  if (needsFood) {
+    move = findPath(snakeHead, nearestFood)[0]
+  } else {
+    move = options[moveIndex]
+  }
 
   var data = {
-    move: options[moveIndex], // one of: ['up','down','left','right']
+    move: move, // one of: ['up','down','left','right']
     taunt: 'Outta my way, snake!!!', // optional, but encouraged!
     head: snakeHead,
     nearestFood: nearestFood,
