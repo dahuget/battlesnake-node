@@ -71,27 +71,6 @@ function avoidSenks(data, head, moveOptions) {
   }
 }
 
-
-  for (i = 1; i < body.length; i++){
-    if(head.x -1 == body[i].x && head.y == body[i].y){
-      //cant go left
-      moveOptions[0] = false
-    }
-    if(head.x +1 == body[i].x && head.y == body[i].y){
-      //cant go right
-      moveOptions[1] = false
-    }
-    if(head.x == body[i].x && head.y -1 == body[i].y){
-      //cant go up
-      moveOptions[2] = false
-    }
-    if(head.x == body[i].x && head.y +1 == body[i].y){
-      //cant go down
-      moveOptions[3] = false
-    }
-  }
-}
-
 function pickMove(data, moveOptions) {
   var head = snakeHead(data.you);
   var wallHeight = data.height;
@@ -104,14 +83,14 @@ function pickMove(data, moveOptions) {
   console.log(moveOptions)
   avoidSenks(data, head, moveOptions)
 
-  for (i=0; i < moveOptions.length; i++) {
-    if (moveOptions[i] === true) {
-      return i
-    }
-  }
+  // for (i=0; i < moveOptions.length; i++) {
+  //   if (moveOptions[i] === true) {
+  //     return i
+  //   }
+  // }
 
-  //moveOptions = moveOptions.filter(Boolean);
-  //var index = Math.floor(Math.random() * moveOptions.length);
+  moveOptions = moveOptions.filter(Boolean);
+  var index = Math.floor(Math.random() * moveOptions.length);
 
 }
 
