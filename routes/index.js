@@ -29,19 +29,19 @@ function avoidSelf(head, moveOptions) {
   for (i = 0; i < body.length; i++){
     if(head.x -1 == body[i].x && head.y == body[i].y){
       //cant go left
-      moves[0] = false
+      moveOptions[0] = false
     }
     if(head.x +1 == body[i].x && head.y == body[i].y){
       //cant go right
-      moves[0] = false
+      moveOptions[1] = false
     }
     if(head.x == body[i].x && head.y -1 == body[i].y){
       //cant go up
-      moves[0] = false
+      moveOptions[2] = false
     }
     if(head.x == body[i].x && head.y +1 == body[i].y){
       //cant go down
-      moves[0] = false
+      moveOptions[3] = false
     }
   }
 }
