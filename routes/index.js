@@ -53,6 +53,7 @@ function pickMove(data, moveOptions) {
   var wallWidth = data.width;
 
   avoidWalls(head, wallHeight, wallWidth, moveOptions)
+  avoidSelf(head, moveOptions)
 
 
   for (i=0; i < moveOptions.length; i++) {
