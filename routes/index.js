@@ -172,6 +172,51 @@ function needFood(data){
 
 }
 
+
+// function killOrAvoid(data, head, moveOptions){
+//   var snakes = data.snakes.data
+//   for(i = 0; i < snakes.length; i++){
+//     var snek = snakes[i].body.data;
+//     var sX = snek[0].x
+//     var sY = snek[0].y
+//     if(((head.y == sY-1 || head.y == sY+1) && head.x-1 == sX))|| ((head.y == sY && head.x-2 == sX)){
+//       if(you.length > snek.length){
+//         moveOptions[0] = true //go left and kill
+//       }
+//       else {
+//         moveOptions[0] = false //avoid
+//       }
+//     }
+//     if(((head.y == sY-1 || head.y == sY+1) && head.x+1 == sX))||
+//       ((head.y == sY && head.x+2 == sX)){
+//       if(you.length > snek.length){
+//         moveOptions[1] = true //go right and kill
+//       }
+//       else {
+//         moveOptions[1] = false //avoid
+//       }
+//     }
+//     if(((head.x == sX-1 || head.x == sX+1) && head.y-1 == sY))||
+//       ((head.x == sX && head.y-2 == sY)){
+//       if(you.length > snek.length){
+//         moveOptions[2] = true //go up and kill
+//       }
+//       else {
+//         moveOptions[2] = false //avoid
+//       }
+//     }
+//   if(((head.x == sX-1 || head.x == sX+1) && head.y+1 == sY))||
+//       ((head.x == sX && head.y+2 == sY)){
+//       if(you.length > snek.length){
+//         moveOptions[2] = true //go down and kill
+//       }
+//       else {
+//         moveOptions[2] = false //avoid
+//       }
+//     }
+// }
+// }
+
 // Handle POST request to '/start'
 router.post('/start', function (req, res) {
   // NOTE: Do something here to start the game
@@ -211,10 +256,11 @@ router.post('/move', function (req, res) {
   }
 
   var data = {
-    move: move, // one of: ['up','down','left','right']
+    move: options[moveIndex], // one of: ['up','down','left','right']
     taunt: 'Outta my way, snake!!!', // optional, but encouraged!
     head: snakeHead,
     nearestFood: nearestFood,
+    needsFood: needsFood,
     path: findPath(snakeHead, nearestFood)
   }
 
