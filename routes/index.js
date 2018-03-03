@@ -126,7 +126,7 @@ router.post('/start', function (req, res) {
     head_url: "http://placecage.com/c/100/100",
     taunt: "OH GOD NOT THE BEES",
     head_type: "tongue",
-    tail_type: "small-rattle"
+    tail_type: "skinny"
   }
 
   return res.json(data)
