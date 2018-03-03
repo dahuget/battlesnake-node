@@ -142,7 +142,7 @@ function shuffle(path) {
 // find closest food point to head location
 function findFood(data) {
   var foodLocation = data.food.data
-  var head = snakeHead(data.you)
+  var head = snakeHelpers.snakeHead(data.you)
   var dist = []
   if (foodLocation.length >= 1){
     // go through all food on board
@@ -156,6 +156,20 @@ function findFood(data) {
     return foodLocation[min]
   }
   return foodLocation[0]
+}
+
+function needFood(data){
+  var snakeHealth = data.you.health
+  var wallHeight = data.height
+  var wallWidth = data.width
+  var dimSum = wallWidth + wallHeight
+
+  if (snakeHealth <= dimSum) {
+    return true;
+  } else{
+    return false;
+  }
+
 }
 
 // Handle POST request to '/start'
@@ -183,14 +197,18 @@ router.post('/move', function (req, res) {
   var moveOptions = [true, true, true, true];
   var moveIndex = pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
-
+  console.log("alkadus")
+  var snakeHead = snakeHelpers.snakeHead(req.body.you)
+  console.log("alkadus")
+  var nearestFood = findFood(req.body)
+  console.log("alkadus")
 
   var data = {
     move: options[moveIndex], // one of: ['up','down','left','right']
     taunt: 'Outta my way, snake!!!', // optional, but encouraged!
-    head: snakeHelpers.snakeHead(req.body.you),
-    nearestFood: findFood(req.body)
-    var path = findPath(snakeHead(req.body.you, nearestFood))
+    head: snakeHead,
+    nearestFood: nearestFood,
+    path: findPath(snakeHead, nearestFood)
   }
 
   return res.json(data)
