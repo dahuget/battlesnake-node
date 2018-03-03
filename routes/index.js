@@ -55,7 +55,7 @@ function pickMove(data, moveOptions) {
   console.log(moveOptions)
   avoidWalls(head, wallHeight, wallWidth, moveOptions)
   console.log(moveOptions)
-  avoidSelf(head, moveOptions)
+  // avoidSelf(head, moveOptions)
   console.log(moveOptions)
 
   for (i=0; i < moveOptions.length; i++) {
