@@ -69,8 +69,6 @@ function avoidSenks(data, head, moveOptions) {
       }
     }
   }
-}
-
 
   for (i = 1; i < body.length; i++){
     if(head.x -1 == body[i].x && head.y == body[i].y){
