@@ -5,22 +5,44 @@ function snakeHead(snake) {
   return snake.body.data[0]; // {"x": 8, "y": 15 }
 }
 
-function avoidWalls(head, height, width, moves) {
+function avoidWalls(head, height, width, moveOptions) {
   if(head.x -1 < 0){
     //cant go left
-    moves[0] = false
+    movmoveOptionses[0] = false
   }
   if(head.x +1 >= width){
     //cant fo right
-    moves[1] = false
+    movemoveOptionss[1] = false
   }
   if(head.y -1 < 0){
     //cant go up
-    moves[2] = false
+    movmoveOptionses[2] = false
   }
   if(head.y +1 >= height){
     //cant go down
-    moves[3] = false
+    movmoveOptionses[3] = false
+  }
+}
+
+function avoidSelf(head, moveOptions) {
+  var body = req.data.you.body.data
+  for (i = 0; i < body.length; i++){
+    if(head.x -1 == body[i].x && head.y == body[i].y){
+      //cant go left
+      moves[0] = false
+    }
+    if(head.x +1 == body[i].x && head.y == body[i].y){
+      //cant go right
+      moves[0] = false
+    }
+    if(head.x == body[i].x && head.y -1 == body[i].y){
+      //cant go up
+      moves[0] = false
+    }
+    if(head.x == body[i].x && head.y +1 == body[i].y){
+      //cant go down
+      moves[0] = false
+    }
   }
 }
 
