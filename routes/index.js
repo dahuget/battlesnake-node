@@ -5,8 +5,7 @@ function snakeHead(snake) {
   return snake.body.data[0]; // {"x": 8, "y": 15 }
 }
 
-function avoidWalls(head, height, width) {
-  var moves = [true, true, true, true] //left, right, up, down
+function avoidWalls(head, height, width, moves) {
   if(head.x -1 < 0){
     //cant go left
     moves[0] = false
@@ -23,20 +22,19 @@ function avoidWalls(head, height, width) {
     //cant go down
     moves[3] = false
   }
-  return moves
 }
 
 
-function pickMove(data) {
+function pickMove(data, moveOptions) {
   var head = snakeHead(data.you);
   var wallHeight = data.height;
   var wallWidth = data.width;
 
-  moves = avoidWalls(head, wallHeight, wallWidth)
+  avoidWalls(head, wallHeight, wallWidth, moveOptions)
 
 
-  for (i=0; i < moves.length; i++) {
-    if (moves[i] === true) {
+  for (i=0; i < moveOptions.length; i++) {
+    if (moveOptions[i] === true) {
       return i
     }
   }
@@ -62,7 +60,8 @@ router.post('/move', function (req, res) {
   // NOTE: Do something here to generate your move
   // Response data
 
-  var moveIndex = pickMove(req.body)
+  var moveOptions = [true, true, true, true];
+  var moveIndex = pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
 
 
