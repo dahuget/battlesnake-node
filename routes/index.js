@@ -69,6 +69,7 @@ function avoidSenks(data, head, moveOptions) {
       }
     }
   }
+}
 
 
   for (i = 1; i < body.length; i++){
