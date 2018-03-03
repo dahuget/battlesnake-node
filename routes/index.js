@@ -46,6 +46,50 @@ function avoidSelf(data, head, moveOptions) {
   }
 }
 
+function avoidSenks(data, head, moveOptions) {
+  var snakes = data.snakes.data
+  for(i = 0; i < snakes.length; i++){
+    var snek = snakes[i].body.data;
+    for(j = 0; j < snek.length; j++){
+      if(head.x -1 == snek[j].x && head.y == snek[j].y){
+        //cant go left
+        moveOptions[0] = false
+      }
+      if(head.x +1 == snek[j].x && head.y == snek[j].y){
+        //cant go right
+        moveOptions[1] = false
+      }
+      if(head.x == snek[j].x && head.y -1 == snek[j].y){
+        //cant go up
+        moveOptions[2] = false
+      }
+      if(head.x == snek[j].x && head.y +1 == snek[j].y){
+        //cant go down
+        moveOptions[3] = false
+      }
+    }
+  }
+
+
+  for (i = 1; i < body.length; i++){
+    if(head.x -1 == body[i].x && head.y == body[i].y){
+      //cant go left
+      moveOptions[0] = false
+    }
+    if(head.x +1 == body[i].x && head.y == body[i].y){
+      //cant go right
+      moveOptions[1] = false
+    }
+    if(head.x == body[i].x && head.y -1 == body[i].y){
+      //cant go up
+      moveOptions[2] = false
+    }
+    if(head.x == body[i].x && head.y +1 == body[i].y){
+      //cant go down
+      moveOptions[3] = false
+    }
+  }
+}
 
 function pickMove(data, moveOptions) {
   var head = snakeHead(data.you);
@@ -57,6 +101,7 @@ function pickMove(data, moveOptions) {
   console.log(moveOptions)
   avoidSelf(data, head, moveOptions)
   console.log(moveOptions)
+  avoidSenks(data, head, moveOptions)
 
   for (i=0; i < moveOptions.length; i++) {
     if (moveOptions[i] === true) {
