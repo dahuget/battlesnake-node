@@ -24,8 +24,8 @@ function avoidWalls(head, height, width, moveOptions) {
   }
 }
 
-function avoidSelf(head, moveOptions) {
-  var body = req.data.you.body.data
+function avoidSelf(data, head, moveOptions) {
+  var body = data.you.body.data
   for (i = 1; i < body.length; i++){
     if(head.x -1 == body[i].x && head.y == body[i].y){
       //cant go left
@@ -55,7 +55,7 @@ function pickMove(data, moveOptions) {
   console.log(moveOptions)
   avoidWalls(head, wallHeight, wallWidth, moveOptions)
   console.log(moveOptions)
-  // avoidSelf(head, moveOptions)
+  avoidSelf(data, head, moveOptions)
   console.log(moveOptions)
 
   for (i=0; i < moveOptions.length; i++) {
