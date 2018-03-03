@@ -94,6 +94,26 @@ function pickMove(data, moveOptions) {
 
 }
 
+// find closest food point to head location
+function findFood(data) {
+  var foodLocation = data.food.data
+  var head = snakeHead(data.you)
+  var dist
+  if (foodLocation.length > 1){
+    // go through all food on board
+    for (int i = 0; i < foodLocation.length; i++){
+        var x = Math.abs(head.x - foodLocation.x)
+        var y = Math.abs(head.y - foodLocation.y)
+        dist[i] = Math.sqrt((Math.pow(x, 2)) + (Math.pow(y, 2)))
+    }
+    // index of minimum distance food
+    var min = dist.indexOf(Math.min(...dist));
+    console.log(min)
+    return foodLocation[min]
+  } 
+  return foodLocation[0]
+}
+
 // Handle POST request to '/start'
 router.post('/start', function (req, res) {
   // NOTE: Do something here to start the game
