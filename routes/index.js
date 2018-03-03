@@ -8,19 +8,19 @@ function snakeHead(snake) {
 function avoidWalls(head, height, width, moveOptions) {
   if(head.x -1 < 0){
     //cant go left
-    moveOptionses[0] = false
+    moveOptions[0] = false
   }
   if(head.x +1 >= width){
     //cant fo right
-    moveOptionss[1] = false
+    moveOptions[1] = false
   }
   if(head.y -1 < 0){
     //cant go up
-    moveOptionses[2] = false
+    moveOptions[2] = false
   }
   if(head.y +1 >= height){
     //cant go down
-    moveOptionses[3] = false
+    moveOptions[3] = false
   }
 }
 
