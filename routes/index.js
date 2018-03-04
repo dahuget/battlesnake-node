@@ -175,9 +175,9 @@ function killOrAvoid(data, head, moveOptions){
     var sX = snek[0].x
     var sY = snek[0].y
 
-    if (you.length <= snek.length) {
-      continue;
-    }
+    // if (you.length <= snek.length) {
+    //   continue;
+    // }
 
     if (
         (head.y-1 == sY || head.y+1 == sY) &&
