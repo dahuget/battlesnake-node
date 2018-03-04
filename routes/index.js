@@ -261,6 +261,11 @@ router.post('/move', function (req, res) {
 
   if (needsFood) {
     move = findPath(snakeHead, nearestFood)[0]
+    for(i = 0; i < moveOptions.length; i++){
+      if(move === options[i] && !moveOptions[i]){
+        move = options[moveIndex]
+      }
+    }
   } else {
     move = options[moveIndex]
   }
