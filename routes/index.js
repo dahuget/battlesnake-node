@@ -266,7 +266,7 @@ router.post('/move', function (req, res) {
 
   var data = {
     move: move, // one of: ['up','down','left','right']
-    taunt: taunts[Math.random() * (0 - 5)] // optional, but encouraged!
+    taunt: taunts[Math.random() * (0 - 5)], // optional, but encouraged!
     head: snakeHead,
     nearestFood: nearestFood,
     needsFood: needsFood,
