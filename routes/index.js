@@ -178,7 +178,7 @@ function killOrAvoid(data, head, moveOptions){
     var sX = snek[0].x
     var sY = snek[0].y
     if (
-        (head.y == sY-1 || head.y == sY+1) &&
+        (head.y-1 == sY || head.y+1 == sY) &&
         head.x-1 == sX ||
         (head.y == sY && head.x-2 == sX)
       ) {
@@ -190,7 +190,7 @@ function killOrAvoid(data, head, moveOptions){
       }
     }
     if (
-      (head.y == sY-1 || head.y == sY+1)
+      (head.y-1 == sY || head.y+1 == sY)
       && head.x+1 == sX ||
       (head.y == sY && head.x+2 == sX)
     ) {
@@ -202,7 +202,7 @@ function killOrAvoid(data, head, moveOptions){
       }
     }
     if(
-      (head.x == sX-1 || head.x == sX+1)
+      (head.x-1 == sX || head.x+1 == sX)
       && head.y-1 == sY ||
       (head.x == sX && head.y-2 == sY)
     ) {
@@ -214,7 +214,7 @@ function killOrAvoid(data, head, moveOptions){
       }
     }
   if (
-    (head.x == sX-1 || head.x == sX+1) &&
+    (head.x-1 == sX || head.x+1 == sX) &&
     head.y+1 == sY ||
     (head.x == sX && head.y+2 == sY)
   ) {
@@ -271,7 +271,7 @@ router.post('/move', function (req, res) {
   }
 
   var data = {
-    move: options[moveIndex], // one of: ['up','down','left','right']
+    move: move, // one of: ['up','down','left','right']
     taunt: 'Outta my way, snake!!!', // optional, but encouraged!
     head: snakeHead,
     nearestFood: nearestFood,
