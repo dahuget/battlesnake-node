@@ -8,6 +8,7 @@ var pathHelper = require('../helpers/pathHelper')
 var selfHelper = require('../helpers/selfHelper')
 var senksHelper = require('../helpers/senksHelper')
 var wallsHelper = require('../helpers/wallsHelper')
+var killHelper = require('../helpers/killHelper')
 
 function avoidWalls(head, height, width, moveOptions) {
   if(head.x -1 < 0){
