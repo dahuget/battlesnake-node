@@ -80,10 +80,10 @@ function pickMove(data, moveOptions) {
   var wallHeight = data.height;
   var wallWidth = data.width;
 
-  avoidWalls(head, wallHeight, wallWidth, moveOptions)
-  avoidSelf(data, head, moveOptions)
   avoidSenks(data, head, moveOptions)
   killOrAvoid(data, head, moveOptions)
+  avoidSelf(data, head, moveOptions)
+  avoidWalls(head, wallHeight, wallWidth, moveOptions)
 
   for (i=0; i < moveOptions.length; i++) {
     if (moveOptions[i] === true) {
@@ -120,30 +120,21 @@ function findPath(head, target){
     down = false
   }
   var horiz = [];
-  for(i = 0; i < Math.abs(xMoves); i++){
-    if(right)
-      horiz.push('right')
-    else if(left)
-      horiz.push('left')
-  }
   var vert = [];
-  for(i = 0; i < Math.abs(yMoves); i++){
-    if(up)
-      horiz.push('up')
-    else if(down)
-      horiz.push('down')
+  if(left){
+    horiz.push('left')
+  }
+  if(right){
+    horiz.push('right')
+  }
+  if(up){
+    horiz.push('up')
+  }
+  if(down){
+    horiz.push('down')
   }
   var path = horiz.concat(vert)
-  shuffle(path)
   return path
-}
-
-function shuffle(path) {
-    for (i = path.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        [path[i], path[j]] = [path[j], path[i]];
-    }
-    return path;
 }
 
 // find closest food point to head location
