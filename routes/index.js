@@ -1,7 +1,14 @@
 var express = require('express')
 var router  = express.Router()
 
-var snakeHelpers = require('../helpers/snakeHelpers')
+var snakeHeadHelper = require('../helpers/snakeHead')
+var foodHelper = require('../helpers/foodHelper')
+var moveHelper = require('../helpers/moveHelper')
+var pathHelper = require('../helpers/pathHelper')
+var selfHelper = require('../helpers/selfHelper')
+var senksHelper = require('../helpers/senksHelper')
+var wallsHelper = require('../helpers/wallsHelper')
+var killHelper = require('../helpers/killHelper')
 
 function avoidWalls(head, height, width, moveOptions) {
   if(head.x -1 < 0){
@@ -70,7 +77,7 @@ function avoidSenks(data, head, moveOptions) {
 }
 
 function pickMove(data, moveOptions) {
-  var head = snakeHelpers.snakeHead(data.you);
+  var head = snakeHeadHelper.snakeHead(data.you);
   var wallHeight = data.height;
   var wallWidth = data.width;
 
@@ -130,7 +137,7 @@ function findPath(head, target){
 // find closest food point to head location
 function findFood(data) {
   var foodLocation = data.food.data
-  var head = snakeHelpers.snakeHead(data.you)
+  var head = snakeHeadHelper.snakeHead(data.you)
   var dist = []
   if (foodLocation.length >= 1){
     // go through all food on board
@@ -168,7 +175,7 @@ function killOrAvoid(data, head, moveOptions){
     var sX = snek[0].x
     var sY = snek[0].y
     if (
-        (head.y == sY-1 || head.y == sY+1) &&
+        (head.y-1 == sY || head.y+1 == sY) &&
         head.x-1 == sX ||
         (head.y == sY && head.x-2 == sX)
       ) {
@@ -180,7 +187,7 @@ function killOrAvoid(data, head, moveOptions){
       }
     }
     if (
-      (head.y == sY-1 || head.y == sY+1)
+      (head.y-1 == sY || head.y+1 == sY)
       && head.x+1 == sX ||
       (head.y == sY && head.x+2 == sX)
     ) {
@@ -192,7 +199,7 @@ function killOrAvoid(data, head, moveOptions){
       }
     }
     if(
-      (head.x == sX-1 || head.x == sX+1)
+      (head.x-1 == sX || head.x+1 == sX)
       && head.y-1 == sY ||
       (head.x == sX && head.y-2 == sY)
     ) {
@@ -204,7 +211,7 @@ function killOrAvoid(data, head, moveOptions){
       }
     }
   if (
-    (head.x == sX-1 || head.x == sX+1) &&
+    (head.x-1 == sX || head.x+1 == sX) &&
     head.y+1 == sY ||
     (head.x == sX && head.y+2 == sY)
   ) {
@@ -243,7 +250,7 @@ router.post('/move', function (req, res) {
   var moveOptions = [true, true, true, true];
   var moveIndex = pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
-  var snakeHead = snakeHelpers.snakeHead(req.body.you)
+  var snakeHead = snakeHeadHelper.snakeHead(req.body.you)
   var nearestFood = findFood(req.body)
 
   var needsFood = needFood(req.body)
@@ -251,12 +258,17 @@ router.post('/move', function (req, res) {
 
   if (needsFood) {
     move = findPath(snakeHead, nearestFood)[0]
+    for(i = 0; i < moveOptions.length; i++){
+      if(move === options[i] && !moveOptions[i]){
+        move = options[moveIndex]
+      }
+    }
   } else {
     move = options[moveIndex]
   }
 
   var data = {
-    move: options[moveIndex], // one of: ['up','down','left','right']
+    move: move, // one of: ['up','down','left','right']
     taunt: 'Outta my way, snake!!!', // optional, but encouraged!
     head: snakeHead,
     nearestFood: nearestFood,
