@@ -174,6 +174,11 @@ function killOrAvoid(data, head, moveOptions){
     var snek = snakes[i].body.data;
     var sX = snek[0].x
     var sY = snek[0].y
+
+    if (you.length <= snek.length) {
+      continue;
+    }
+
     if (
         (head.y-1 == sY || head.y+1 == sY) &&
         head.x-1 == sX ||
