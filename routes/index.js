@@ -175,10 +175,6 @@ function killOrAvoid(data, head, moveOptions){
     var sX = snek[0].x
     var sY = snek[0].y
 
-    // if (you.length <= snek.length) {
-    //   continue;
-    // }
-
     if (
         (head.y-1 == sY || head.y+1 == sY) &&
         head.x-1 == sX ||
@@ -186,9 +182,6 @@ function killOrAvoid(data, head, moveOptions){
       ) {
       if (you.length > snek.length){
         moveOptions[0] = true //go left and kill
-      }
-      else {
-        moveOptions[0] = false //avoid
       }
     }
     if (
@@ -199,9 +192,6 @@ function killOrAvoid(data, head, moveOptions){
       if(you.length > snek.length){
         moveOptions[1] = true //go right and kill
       }
-      else {
-        moveOptions[1] = false //avoid
-      }
     }
     if(
       (head.x-1 == sX || head.x+1 == sX)
@@ -210,9 +200,6 @@ function killOrAvoid(data, head, moveOptions){
     ) {
       if(you.length > snek.length){
         moveOptions[2] = true //go up and kill
-      }
-      else {
-        moveOptions[2] = false //avoid
       }
     }
   if (
@@ -223,12 +210,17 @@ function killOrAvoid(data, head, moveOptions){
       if(you.length > snek.length){
         moveOptions[2] = true //go down and kill
       }
-      else {
-        moveOptions[2] = false //avoid
-      }
     }
   }
 }
+
+var taunts = [
+  'You\'re hisssstory!',
+  'nothing personnel kid',
+  'try again sweaty',
+  'haha me too thanks',
+  'The Hisssss of Death!'
+];
 
 // Handle POST request to '/start'
 router.post('/start', function (req, res) {
@@ -274,7 +266,7 @@ router.post('/move', function (req, res) {
 
   var data = {
     move: move, // one of: ['up','down','left','right']
-    taunt: 'Outta my way, snake!!!', // optional, but encouraged!
+    taunt: taunts[Math.random() * (0 - 5)] // optional, but encouraged!
     head: snakeHead,
     nearestFood: nearestFood,
     needsFood: needsFood,
