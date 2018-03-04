@@ -82,7 +82,7 @@ function pickMove(data, moveOptions) {
   var wallWidth = data.width;
 
   avoidSenks(data, head, moveOptions)
-  killOrAvoid(data, head, moveOptions)
+  // killOrAvoid(data, head, moveOptions)
   avoidSelf(data, head, moveOptions)
   avoidWalls(head, wallHeight, wallWidth, moveOptions)
 
