@@ -93,25 +93,21 @@ function pickMove(data, moveOptions) {
 function findPath(head, target){
   var xMoves = target.x - head.x;
   var yMoves = target.y - head.y;
-  var left = true;
-  var right = true;
-  var up = true;
-  var down = true;
+  var left = false;
+  var right = false;
+  var up = false;
+  var down = false;
   if(xMoves < 0){
     //moving left
-    right = false;
+    left = true;
+  } else  if(xMoves > 0){
+    right = true;
   }
   if(yMoves < 0){
     //moving up
-    down = false
-  }
-  if(xMoves == 0){
-    right = false
-    left = false
-  }
-  if(yMoves == 0){
-    up = false
-    down = false
+    up = true
+  } else if(yMoves > 0){
+    down = true;
   }
   var horiz = [];
   var vert = [];
