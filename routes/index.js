@@ -1,7 +1,13 @@
 var express = require('express')
 var router  = express.Router()
 
-var snakeHelpers = require('../helpers/snakeHelpers')
+var snakeHeadHelper = require('../helpers/snakeHead')
+var foodHelper = require('../helpers/foodHelper')
+var moveHelper = require('../helpers/moveHelper')
+var pathHelper = require('../helpers/pathHelper')
+var selfHelper = require('../helpers/selfHelper')
+var senksHelper = require('../helpers/senksHelper')
+var wallsHelper = require('../helpers/wallsHelper')
 
 function avoidWalls(head, height, width, moveOptions) {
   if(head.x -1 < 0){
@@ -70,7 +76,7 @@ function avoidSenks(data, head, moveOptions) {
 }
 
 function pickMove(data, moveOptions) {
-  var head = snakeHelpers.snakeHead(data.you);
+  var head = snakeHeadHelper.snakeHead(data.you);
   var wallHeight = data.height;
   var wallWidth = data.width;
 
@@ -143,7 +149,7 @@ function shuffle(path) {
 // find closest food point to head location
 function findFood(data) {
   var foodLocation = data.food.data
-  var head = snakeHelpers.snakeHead(data.you)
+  var head = snakeHeadHelper.snakeHead(data.you)
   var dist = []
   if (foodLocation.length >= 1){
     // go through all food on board
@@ -256,7 +262,7 @@ router.post('/move', function (req, res) {
   var moveOptions = [true, true, true, true];
   var moveIndex = pickMove(req.body, moveOptions)
   var options = ['left', 'right', 'up', 'down']
-  var snakeHead = snakeHelpers.snakeHead(req.body.you)
+  var snakeHead = snakeHeadHelper.snakeHead(req.body.you)
   var nearestFood = findFood(req.body)
 
   var needsFood = needFood(req.body)
